@@ -1,0 +1,27 @@
+// Home route
+app.get('/', (req, res) => {
+    res.render('home', { title: 'Home Page' });
+});
+
+// Handle form submission
+app.post('/submit-form', (req, res) => {
+    console.log('Form data:', req.body);
+    res.send('Form submission successful!');
+});
+
+// About route with route parameter
+app.get('/about/:name', (req, res) => {
+    const name = req.params.name;
+    res.render('about', { title: 'About Page', name });
+});
+
+// Download image route
+app.get('/download-image', (req, res) => {
+    const file = path.join(__dirname, 'public/sample.jpg');
+    res.download(file, 'downloaded-sample.jpg', (err) => {
+        if (err) {
+            console.error('Error downloading file:', err);
+            res.status(500).send('File download failed');
+        }
+    });
+});
